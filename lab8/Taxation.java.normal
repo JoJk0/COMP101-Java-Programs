@@ -1,0 +1,62 @@
+// TAXATION CLASS
+// This class calculates the the net salary, gross salary and the tax amount deduced from the salary.
+// Made by Jakub Janisz (u5jj1) for The University of Liverpool assignment
+// 25/11/2015
+
+import java.math.*;
+
+public class Taxation{
+
+// CONSTANTS
+
+    private final double TAX[] = {20.00, 50.00};
+    private final int TRESHOLD = 30000;
+
+
+// CLASS VARIABLES
+
+    /*private int startSalary;
+    private int years;*/
+
+// CONSTRUCTOR METHOD
+
+    public Taxation(){
+
+    }
+
+ // METHODS
+    // This method calculates gross salary, net salary and the tax.
+    // It returns a 2-dimensional array with first dimension as the identifier of the year and second dimension as the value (0 = gross salary, 1 = net salary and 2 = tax)
+    public double[][] calculate(int theSalary, int theYear, int theYearsNum){
+
+        double retArray[][] = new double[theYearsNum][3];
+        double tax;
+        for(int i=0; i < theYearsNum; i++){
+
+            if(i == 0){
+
+              retArray[i][0] = theSalary;
+
+            } else{
+              theSalary = theSalary+(theSalary*theYear/100);
+              retArray[i][0] = theSalary;
+            }
+            if(theSalary <= TRESHOLD){
+
+                tax = theSalary*TAX[0]/100;
+                retArray[i][2] = tax;
+
+            } else{
+
+                tax = (TRESHOLD*TAX[0]/100) + ((theSalary - TRESHOLD)*TAX[1]/100);
+                retArray[i][2] = tax;
+
+            }
+            retArray[i][1] = theSalary-tax;
+
+
+        }
+        return retArray;
+    }
+
+}
